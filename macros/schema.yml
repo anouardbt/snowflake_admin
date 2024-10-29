@@ -1,0 +1,336 @@
+version: 2
+
+macros:
+  - name: run_flow
+    description: >
+      Runs a flow consisting of a list of tasks. 
+    arguments:
+      - name: tasks
+        type: list[task]
+        description: >
+          The list of tasks to run in the flow. 
+          
+          Task object structure:
+            macro [string]: the name of the macro to run in the task
+            variables [object]: a map of input variables for the macro
+
+  # STAGES
+  - name: create_internal_stages
+    description: >
+      Creates internal stages and uploads the masking policy UDF to each of them.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_internal_stages
+    description: >
+      Drops internal stages
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # MASKING POLICIES
+  - name: create_masking_policies
+    description: >
+      Applies PII masking policy/policies on tables
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_masking_policies
+    description: >
+      Drops PII masking policy/policies on tables
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # UDFS
+  - name: create_udfs
+    description: >
+      Creates Snowflake UDFs from Python sources.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # ROLES
+  - name: create_snowflake_roles
+    description: >
+      Creates Snowflake roles
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_roles
+    description: >
+      Drops Snowflake roles
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: grant_snowflake_roles
+    description: >
+      Grants users/roles a list of roles specified for each user/role.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: revoke_snowflake_roles
+    description: >
+      Revokes roles specified from a user/role.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: grant_snowflake_privileges
+    description: >
+      Grants a set of privileges on a certain object to a role.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: revoke_snowflake_privileges
+    description: >
+      Revokes a set of privileges on a certain object from a role.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # DATABASES
+  - name: alter_snowflake_databases
+    description: >
+      Alters Snowflake databases
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: create_snowflake_databases
+    description: >
+      Creates Snowflake databases
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_databases
+    description: >
+      Drops Snowflake databases
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # SCHEMAS
+  - name: create_snowflake_schemas
+    description: >
+      Creates Snowflake schemas
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: alter_snowflake_schemas
+    description: >
+      Alters Snowflake schemas
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_schemas
+    description: >
+      Drops Snowflake schemas
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # ACCOUNT
+  - name: create_snowflake_account
+    description: >
+      Creates one or more accounts in the current Snowflake organization.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: set_snowflake_timezone
+    description: >
+      Sets the default timezone for the current Snowflake account.
+    arguments:
+      - name: timezone
+        type: string
+        description: Timezone as a string to set as a deafult
+
+  # RESOURCE MONITORS
+  - name: create_snowflake_resource_monitors
+    description: >
+      Creates one or more resource monitors in the current Snowflake organization.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_resource_monitors
+    description: >
+      Drops one or more resource monitors in the current Snowflake organization.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # SHARES
+  - name: create_snowflake_db_from_share
+    description: >
+      Creates a database from a share
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_db_from_share
+    description: >
+      Drops database created from a share
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: add_snowflake_account_to_share
+    description: >
+      Adds consumer accounts to a share
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: create_snowflake_share_from_db
+    description: >
+      Creates a share for a database
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_share
+    description: >
+      Drops a share
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: remove_snowflake_account_from_share
+    description: >
+      Adds consumer accounts to a share
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # TABLES
+  - name: create_snowflake_tables
+    description: >
+      Creates one or more tables on the Snowflake raw layer.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_tables
+    description: >
+      Drops one or more tables on the Snowflake raw layer.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # USERS
+  - name: create_snowflake_users
+    description: >
+      Creates a new (technical) user on Snowflake.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_users
+    description: >
+      Drops a user on Snowflake.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  # WAREHOUSES
+  - name: create_snowflake_warehouses
+    description: >
+      Creates a new virtual warehouse on Snowflake.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+
+  - name: drop_snowflake_warehouses
+    description: >
+      Drops a warehouse on Snowflake.
+    arguments:
+      - name: variables
+        type: object
+        description: A variable map. See macro code for detailed structure.
+  
+  - name: create_tags
+    description: Creates one or more Snowflake tags
+    arguments:
+     - name: variables
+       type: object
+       description: >
+          tags [list[TAG]] - a list of tags
+          
+          TAG := 
+            name [string] - tag name
+            allowed_values [list[string]] - (optional) list of allowed values for tag_1
+            comment [string] - (optional) comment for tag
+  
+  - name: drop_tags
+    description: Drops one or more Snowflake tags
+    arguments:
+      - name: variables
+        type: object
+        description: >
+          tags [list[TAG]] - a list of tags
+          
+          TAG := 
+            name [string] - tag name
+  
+  - name: tagging_setup
+    description: Creates a db (TAGS), schema (TAGS.TAGS) and role (TAG_ADMIN) for tag management.
+    arguments: []
+
+  - name: assign_tags
+    description: Assigns tags to one or more database objects
+    arguments:
+      - name: variables
+        type: object
+        description: >
+          assignments [list[ASSIGNMENT]] - a list of tag assignments
+          
+          ASSIGNMENT := 
+            object_type [string] - type of assignment object
+            object_name [string] - name of assignment object
+            tags [list[TAG]] - list of tags to assign to object
+          
+          TAG :=
+            name [string] - tag name
+            value [string] - tag value
