@@ -16,7 +16,7 @@
               "comment": "Role used by data engineers for branch " ~ branch_name
             },
             {
-              "role_name": "ROLE_ANALYTICS_ENGINEER_{{ branch_name }}" ~ branch_name,
+              "role_name": "ROLE_ANALYTICS_ENGINEER_" ~ branch_name,
               "comment": "Role used by analytics engineers"
             }
           ]
